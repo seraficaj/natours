@@ -20,7 +20,9 @@ mongoose
   .then(() => console.log('DB connected succesfully!'));
 
 //READ JSON FILE
-const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours-simple.json`, 'utf-8'));
+const tours = JSON.parse(
+  fs.readFileSync(`${__dirname}/tours-simple.json`, 'utf-8')
+);
 
 //IMPORT DATA INTO DATABASE
 const importData = async () => {
@@ -28,10 +30,10 @@ const importData = async () => {
     await Tour.create(tours);
     console.log('Data successfully loaded!');
     process.exit();
-  } catch(err)  {
-    console.log(err)
+  } catch (err) {
+    console.log(err);
   }
-}
+};
 
 // DELETE ALL DATA FROM COLLECTION
 const deleteData = async () => {
@@ -39,10 +41,10 @@ const deleteData = async () => {
     await Tour.deleteMany();
     console.log('Data successfully deleted!');
     process.exit();
-  } catch(err)  {
-    console.log(err)
+  } catch (err) {
+    console.log(err);
   }
-}
+};
 
 if (process.argv[2] === '--import') {
   importData();
