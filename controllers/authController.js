@@ -7,7 +7,7 @@ const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
-}
+};
 
 exports.signUp = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
@@ -49,4 +49,29 @@ exports.login = catchAsync(async (req, res, next) => {
     status: 'success',
     token,
   });
+});
+
+exports.protect = catchAsync(async (req, res, next) => {
+  // 1) Getting token and check if it exists
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    token = req.headers.authorization.split(' ')[1];
+  }
+  console.log(token);
+
+  if (!token) {
+    return next(
+      new AppError('You are not logged in! Please log in to access!', 401)
+    );
+  }
+  // 2) Verification of token
+
+  // 3) Check if user still exists
+
+  // 4) Check if user changed password after token was issued
+
+  next();
 });
