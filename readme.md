@@ -23,7 +23,7 @@ This section is for my own reference and others looking to clone the project and
 You will need:
 - a MongoDB Atlas Account and database set up on their website
 - a mailtrap.io account
-- to configure a `.env` file with these fields filled in with your own fields:
+- to configure a `.env` file with these fields filled in with your own values:
 ```
 NODE_ENV=development
 PORT=3000
