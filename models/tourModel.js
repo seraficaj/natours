@@ -112,7 +112,7 @@ const tourSchema = new mongoose.Schema(
         type: mongoose.Schema.ObjectId,
         ref: 'User',
       },
-    ]
+    ],
   },
   {
     toJSON: { virtuals: true },
@@ -120,19 +120,18 @@ const tourSchema = new mongoose.Schema(
   }
 );
 
-tourSchema.imdex({price: 1, ratingsAverage: -1});
-tourSchema.index({slug: 1});
+tourSchema.index({ price: 1, ratingsAverage: -1 });
+tourSchema.index({ slug: 1 });
 
 tourSchema.virtual('durationWeeks').get(function () {
   return this.duration / 7;
 });
 
-
 //Virtual Populate
 tourSchema.virtual('reviews', {
   ref: 'Review',
   foreignField: 'tour',
-  localField: '_id'
+  localField: '_id',
 });
 
 //Document Middleware: runs before .save() and .create()
@@ -165,7 +164,7 @@ tourSchema.pre(/^find/, function (next) {
   next();
 });
 
-tourSchema.pre(/^find/, function(next) {
+tourSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'guides',
     select: '-__v -passwordChangedAt',
@@ -177,7 +176,6 @@ tourSchema.post(/^find/, function (docs, next) {
   console.log(`Query took ${Date.now() - this.start} milliseconds`);
   next();
 });
-
 
 //Aggregation Middleware
 tourSchema.pre('aggregate', function (next) {
