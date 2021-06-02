@@ -1,1 +1,21 @@
-h1 The Park Camper 
+doctype html
+html
+  head 
+    // Template strings in Pug are #{}
+    title Natours | #{tour} 
+    link(rel='stylesheet' href='css/style.css')
+    link(rel='shortcut' type='image/png' href='img/favicon.png')
+
+  body 
+    h1=tour 
+    h1 The Park Camper 
+    
+    h2= user.toUpperCase()
+    // This is a comment and will show up in the HTML
+    //- This comment will be invisible
+
+    // Unbuffered code does not add to output
+    - const x = 9;
+    // Buffered code adds to output
+    h2= 2 * x 
+    p This is just some text
