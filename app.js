@@ -76,7 +76,19 @@ app.get('/', (req, res) => {
     tour: 'The Magical Forest hiker',
     user: 'JONAS',
   });
-})
+});
+
+app.get('/overview', (req,res) => {
+  res.status(200).render('overview', {
+    title: 'All Tours',
+  });
+});
+
+app.get('/tour', (req,res) => {
+  res.status(200).render('tour', {
+    title: 'The Ice Cream Taster',
+  });
+});
 
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
