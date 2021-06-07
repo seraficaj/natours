@@ -1,48 +1,46 @@
 /* eslint-disable */
+export const displayMap = (locations) => {
+  mapboxgl.accessToken =
+    'pk.eyJ1Ijoic2VyYWZpY2FqIiwiYSI6ImNrcGhwZHYwZDByNzAydW85dmExYTY4a2EifQ.M7XF43ELi_wcupoL0tVv5w';
 
-const locations = JSON.parse(document.getElementById('map').dataset.locations);
-console.log(locations);
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/seraficaj/ckphpyha209xo17mmncs1dw7o',
+    scrollZoom: false,
+  });
 
-mapboxgl.accessToken =
-  'pk.eyJ1Ijoic2VyYWZpY2FqIiwiYSI6ImNrcGhwZHYwZDByNzAydW85dmExYTY4a2EifQ.M7XF43ELi_wcupoL0tVv5w';
+  const bounds = new mapboxgl.LngLatBounds();
 
-var map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/seraficaj/ckphpyha209xo17mmncs1dw7o',
-  scrollZoom: false,
-});
+  locations.forEach((loc) => {
+    // Create marker
+    const el = document.createElement('div');
+    el.className = 'marker';
+    // Add Marker
+    new mapboxgl.Marker({
+      element: el,
+      anchor: 'bottom',
+    })
+      .setLngLat(loc.coordinates)
+      .addTo(map);
 
-const bounds = new mapboxgl.LngLatBounds();
+    // Add popup
+    new mapboxgl.Popup({
+      offset: 30,
+    })
+      .setLngLat(loc.coordinates)
+      .setHTML(`<p>Day ${loc.day} ${loc.description}</p>`)
+      .addTo(map);
 
-locations.forEach((loc) => {
-  // Create marker
-  const el = document.createElement('div');
-  el.className = 'marker';
-  // Add Marker
-  new mapboxgl.Marker({
-    element: el,
-    anchor: 'bottom',
-  })
-    .setLngLat(loc.coordinates)
-    .addTo(map);
+    // Extend map bounds to include current location
+    bounds.extend(loc.coordinates);
+  });
 
-  // Add popup
-  new mapboxgl.Popup({
-    offset: 30,
-  })
-    .setLngLat(loc.coordinates)
-    .setHTML(`<p>Day ${loc.day} ${loc.description}</p>`)
-    .addTo(map);
-
-  // Extend map bounds to include current location
-  bounds.extend(loc.coordinates);
-});
-
-map.fitBounds(bounds, {
-  padding: {
-    top: 200,
-    bottom: 150,
-    left: 100,
-    right: 100,
-  },
-});
+  map.fitBounds(bounds, {
+    padding: {
+      top: 200,
+      bottom: 150,
+      left: 100,
+      right: 100,
+    },
+  });
+};
