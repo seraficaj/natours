@@ -16,6 +16,10 @@ Tech and Feature Stack:
 
 This project was made for the [Node.js, Express, MongoDB & More: The Complete Bootcamp](https://www.udemy.com/course/nodejs-express-mongodb-bootcamp/) course on Udemy.com. However, I will be adding additional features, locations, and even switching out the front end templating engine on development branches.
 
+## Things included in this repo that may not be in the original course:
+- swtiching from Pug to EJS for the front-end
+- functional button and page for signing up new accounts
+
 ## Setup 
 
 This section is for my own reference and others looking to clone the project and set it up.
